@@ -1,0 +1,21 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{bat,cmd,dos,ps1}]
+charset = unset
+end_of_line = crlf
+
+[*.{html,json,xml,yaml,yml}]
+indent_size = 2
+insert_final_newline = unset
+
+[*.{md,readme,rst,snap,txt}]
+indent_size = unset
+trim_trailing_whitespace = false
