@@ -1,0 +1,513 @@
+{
+    // Controls the "color_scheme" when set to "auto"
+    "dark_color_scheme": "ayu-mirage.sublime-color-scheme",
+    "light_color_scheme": "ayu-light.sublime-color-scheme",
+
+    // Controls the `theme` when set to `auto`
+    "dark_theme": "ayu-mirage.sublime-theme",
+    "light_theme": "ayu-light.sublime-theme",
+
+    // Enable hardware accelerated rendering, moving rendering to GPU
+    "hardware_acceleration": "opengl",
+
+    "font_face": "Courier Prime Code",
+    "font_size": 9,
+
+    ////////////////////////////////////////////////////////////////////////////
+    //
+    // Miscellaneous
+    //
+
+    // Don't draw divider lines between sections of the UI
+    // when using the Adaptive theme
+    "adaptive_dividers": false,
+
+    // Enable showing git status for a git repository in the user's home folder
+    "allow_git_home_dir": true,
+
+    // Don't prompt before reloading a file if it hasn't been modified
+    "always_prompt_for_file_reload": false,
+
+    // Visualise the viewport on the minimap only on mouse over
+    "always_show_minimap_viewport": false,
+
+    // Enable animation throughout the application
+    "animation_enabled": true,
+
+    // Automatically close HTML and XML tags when '</' is entered
+    "auto_close_tags": true,
+
+    // Enable auto complete to be triggered automatically when typing
+    "auto_complete": true,
+
+    // Show the auto complete after typing with a non-zero delay (in ms)
+    "auto_complete_delay": 42,
+
+    // Make auto complete commit the current completion on tab, removing
+    // ambiguity between committing the completion and inserting a newline
+    "auto_complete_commit_on_tab": true,
+
+    // Cycle items in the auto complete window when pressing the Up/Down keys
+    "auto_complete_cycle": true,
+
+    // Include snippets in the auto complete
+    "auto_complete_include_snippets": true,
+
+    // Include snippets in the auto complete when typing, not only when
+    // the auto complete dialog is explicitly triggered
+    "auto_complete_include_snippets_when_typing": true,
+
+    // Partially reorder the results, taking into account how well
+    // the completion matches what's typed amd the likelihood of the completion
+    "auto_complete_preserve_order": "some",
+
+    // Add a space after completions if the auto complete engine
+    // thinks they're likely enough
+    "auto_complete_trailing_spaces": true,
+
+    // Add trailing symbols after completions if the auto complete engine
+    // thinks they're likely enough
+    "auto_complete_trailing_symbols": true,
+
+    // Don't automatically select previously-selected completions
+    "auto_complete_use_history": false,
+
+    // Make auto complete use indexed data to provide completions
+    // from other files (annoying but useful)
+    "auto_complete_use_index": true,
+
+    // Show auto complete when snippet fields are active
+    "auto_complete_with_fields": true,
+
+    // Don't automatically enable the "Find in Selection" flag when multiple
+    // lines of text are selected
+    "auto_find_in_selection": false,
+
+    // Don't automatically hide the menu when typing
+    "auto_hide_menu": false,
+
+    // Don't automatically hide the status bar when typing
+    "auto_hide_status_bar": false,
+
+    // Don't automatically hide the tabs when typing
+    "auto_hide_tabs": false,
+
+    // Calculate indentation automatically when pressing Enter
+    "auto_indent": true,
+
+    // Automatically pair quotes, brackets etc.
+    "auto_match_enabled": true,
+
+    // Draw the caret as a rectangle, using the width of the current character
+    "block_caret": true,
+
+    // Show folders in the sidebar in bold
+    "bold_folder_labels": true,
+
+    // Add a bit on the bottom of the caret
+    "caret_extra_bottom": 3,
+
+    // Add a bit on the top of the caret
+    "caret_extra_top": 3,
+
+    // Turn off caret blink
+    "caret_style": "solid",
+
+    // Don't close saved files that have been deleted from the filesystem
+    "close_deleted_files": false,
+
+    // Close the find panel when the "Find All" button is pressed
+    "close_find_after_find_all": true,
+
+    // Close the find panel when the "Replace All" button is pressed
+    "close_find_after_replace_all": true,
+
+    // Don't close windows as soon as the last file is closed (unless there's
+    // a folder open within the window; overridden on Mac)
+    "close_windows_when_empty": false,
+
+    // Switch between the light and dark color schemes based on the operating
+    // system appearance
+    "color_scheme": "auto",
+
+    // Draw control characters using their abbreviation (e.g. NBSP)
+    "control_character_style": "names",
+
+    // Make the copy and cut commands operate on the current line
+    // when the selection is empty, rather than doing nothing
+    "copy_with_empty_selection": true,
+
+    // Create an empty window on startup (on Mac)
+    "create_window_at_startup": true,
+
+    // Use this encoding when saving new files and files opened with
+    // an undefined encoding (e.g. plain ASCII files); if a file is opened
+    // with a specific encoding, this setting will be ignored and the file
+    // will be saved with the encoding it wes opened with
+    "default_encoding": "UTF-8",
+
+    // Use LF only to terminate each line in new files
+    "default_line_ending": "unix",
+
+    // Enable detection of tabs vs. spaces on load
+    "detect_indentation": true,
+
+    // Don't begin a drag-drop operation when clicking on selected text
+    "drag_text": false,
+
+    // If enabled, draws text centered in the window rather than left aligned
+    "draw_centered": false,
+
+    // Turn on the indentation guides (the line to the right of line numbers)
+    "draw_indent_guides": true,
+
+    // Draw a border around the visible rectangle on the minimap; the color
+    // of the border will be determined by the `minimap_border` key in the
+    // color scheme
+    "draw_minimap_border": true,
+
+    // Draw codepoints of unicode bidirectional text formatting characters
+    "draw_unicode_bidi": true,
+
+    // Draw codepoints of unicode white space defined as punctuation (e.g. NBSP)
+    "draw_unicode_white_space": "punctuation",
+
+    // Draw white space when:
+    //  - enclosed by other characters that does not match the indentation style
+    //  - on lines containing no other characters
+    //  - under the current selection
+    //  - following the last character on a line
+    "draw_white_space": ["enclosed_mixed", "isolated", "selection", "trailing"],
+
+    // Open files containing null bytes as hexadecimal
+    "enable_hexadecimal_encoding": true,
+
+    // Allow tabs to scroll left and right instead of simply shrinking
+    "enable_tab_scrolling": true,
+
+    // Ensure the last line of the files ends in a newline character on save
+    "ensure_newline_at_eof_on_save": true,
+
+    // Hide the fold buttons (if enabled) unless the mouse is over the gutter
+    "fade_fold_buttons": true,
+
+
+    "fallback_encoding": "Central European (ISO 8859-2)",
+
+    // Use square file tabs for the Default, Default Dark and Adaptive themes
+    "file_tab_style": "square",
+
+    // Show three context lines for each result
+    "find_in_files_context_lines": 3,
+
+    // Open search results from Find in Files buffer side-by-side
+    "find_in_files_side_by_side": true,
+
+    // Do not suppress error messages from failing to open and search files
+    "find_in_files_suppress_errors": false,
+
+    // Copy the selected text into the find panel when it's shown (not on Mac)
+    "find_selected_text": true,
+
+    // Take focus when a file is dragged and dropped onto Sublime Text
+    "focus_on_file_drop": true,
+
+    // Don't show fold buttons (the triangles used to fold regions of text)
+    "fold_buttons": false,
+
+
+    "fold_style": "auto",
+
+    // Don't list these folders in the sidebar
+    "folder_exclude_patterns": [
+        ".git", ".hg", ".svn", "CVS", ".Trash", ".Trash-*", // default
+        "node_modules",                                     // Node.js
+    ],
+
+    // Diff tracked git files against HEAD
+    "git_diff_target": "head",
+
+    // Make Goto Anything exclude files ignored by git
+    "goto_anything_exclude_gitignore": true,
+
+    // Show the gutter
+    "gutter": true,
+
+    // Don't hide the new tab button
+    "hide_new_tab_button": false,
+
+    // Hide the mouse pointer/cursor when typing (not on macOS though!)
+    "hide_pointer_while_typing": true,
+
+    // Hide the buttons for scrolling tabs left and right
+    "hide_tab_scrolling_buttons": true,
+
+    // Highlight find results in the scrollbar
+    "highlight_find_results_in_scrollbar": true,
+
+    // Highlight the gutter for any line with a caret
+    "highlight_gutter": true,
+
+    // Highlight any line with a caret
+    "highlight_line": true,
+
+    // Highlight the line number in the gutter for any line with a caret
+    "highlight_line_number": true,
+
+    // Make tabs with modified files more visible
+    "highlight_modified_tabs": true,
+
+    // Exit the application, closing immediately without prompting; unsaved
+    // modifications and open files will be preserved and restored on restart
+    "hot_exit": "always",
+
+    // Don't close projects immediately without prompting
+    "hot_exit_projects": false,
+
+    // List of packages to ignore
+    "ignored_packages":
+    [
+        "Vintage", // default
+        "Rust"     // RustEnhanced
+    ],
+
+    // Slightly modify inactive sheets' background to make input focus obvious
+    "inactive_sheet_dimming": true,
+
+
+    "indent_guide_options": ["draw_normal", "draw_active_single"],
+
+    // Indent word wrapped lines at the same level
+    "indent_subsequent_lines": true,
+
+    // Don't add whitespace up to the first open bracket when indenting
+    "indent_to_bracket": false,
+
+    // Make the indexer exclude files ignored by git
+    "index_exclude_gitignore": true,
+
+    // Parse all files in the sidebar and build an index of their symbols
+    "index_files": true,
+
+    // Don't check unknown file extensions for indexing
+    "index_skip_unknown_extensions": true,
+
+    // Draw line numbers in the gutter
+    "line_numbers": true,
+
+    // Do not do additional spacing (in pixels) at the bottom of each line
+    "line_padding_bottom": 0,
+
+    // Do not do additional spacing (in pixels) at the top of each line
+    "line_padding_top": 0,
+
+    // Enable underlining the brackets surrounding the caret
+    "match_brackets": true,
+
+    // Do not highlight angle brackets (if `match_brackets` is enabled)
+    "match_brackets_angle": true,
+
+    // Highlight curly brackets (if `match_brackets` is enabled)
+    "match_brackets_braces": true,
+
+    // Highlight the brackets when within their scope, not only when next to one
+    "match_brackets_content": true,
+
+    // Highlight square brackets (if `match_brackets` is enabled)
+    "match_brackets_square": true,
+
+    // Highlight other occurrences of the currently selected text
+    "match_selection": true,
+
+    // Enable visualisation of the matching tags in HTML and XML
+    "match_tags": true,
+
+    // Enable modified line indicators on tracked files within Git in the gutter
+    "mini_diff": "auto",
+
+    // Scroll the minimap horizontally to match the viewport
+    "minimap_horizontal_scrolling": true,
+
+
+    "move_to_limit_on_up_down": false,
+
+    // Allow multiple projects in a single window with native (on macOS) tabs
+    "native_tabs": "system",
+
+    // Open files in a new window when dragging them onto the dock icon (on Mac)
+    "open_files_in_new_window": "finder_only",
+
+    // Favor opening new tabs after the current tab
+    "open_tabs_after_current": true,
+
+    // Use system overlay scroll bars
+    "overlay_scroll_bars": "system",
+
+    // Draw shadows under popup windows
+    "popup_shadows": true,
+
+    // Preview file contents when clicking on a file in the sidebar on left
+    // click only; right click will change the selection but not preview it
+    "preview_on_click": "only_left",
+
+    // Automatically escape patterns copied from selected text to the find panel
+    // when doing a regex search
+    "regex_auto_escape": true,
+
+    // Draw each line number as the distance from the current line
+    "relative_line_numbers": true,
+
+    // Reload a file if it has changed on disk
+    "reload_file_on_change": true,
+
+    // Start Sublime Text in full screen mode if it was exited in it
+    "remember_full_screen": true,
+
+    // Don't make Sublime Text start with the same layout it closed with
+    "remember_layout": false,
+
+    // Make Sublime Text remember what workspace each window was in last
+    "remember_workspace": true,
+
+    // Make alt-tap reveal the menu when hidden on Linux and Windows
+    "reveal_menu": true,
+
+    // Display two vertical rules - one solid at 80 columns, one stippled at 100
+    "rulers": [[80, "solid"], [100, "stippled"]],
+
+    // Don't save files automatically when switching to a different file or app
+    "save_on_focus_lost": false,
+
+
+    "scroll_context_lines": 10,
+
+    // Disable scrolling past the end of the buffer (overridden on Mac)
+    "scroll_past_end": false,
+
+    // Enable smooth scrolling
+    "scroll_speed": 1,
+
+    // When clicking on a single file in the sidebar that's already open,
+    // select it if it's already open in any group
+    "select_across_groups": true,
+
+    // Count tabs as their width in spaces in status bar selection description
+    "selection_description_column_type": "virtual",
+
+    // Invoke the user's default shell to obtain his local environment variables
+    "shell_environment": true,
+
+
+    "shift_tab_unindent": false,
+
+    // Don't show a popup listing all possible locations for the definition
+    // symbol when hovering
+    "show_definitions": false,
+
+    // Display file encoding in the status bar
+    "show_encoding": true,
+
+    // Don't show build errors just under the line on which they occur
+    "show_errors_inline": false,
+
+    // Show the full path to files in the title bar
+    "show_full_path": true,
+
+    // Show git repository info next to files in the sidebar
+    // and in the status bar
+    "show_git_status": true,
+
+    // Display the git status in the status bar (with `show_git_status` on)
+    "show_git_status_in_status_bar": true,
+
+    // Display indentation in the status bar
+    "show_indentation": true,
+
+    // Show Line, Column in the status bar in full length
+    "show_line_column": "enabled",
+
+    // Display line endings in the status bar
+    "show_line_endings": true,
+
+    // Show recent files on the Touch Bar (on Mac)
+    "show_navigation_bar": true,
+
+    // Show the Build Results panel when building
+    "show_panel_on_build": true,
+
+    // Show "project - file" in the title bar
+    "show_project_first": true,
+
+    // Show the relative path to files in the title bar (overriding full path)
+    "show_rel_path": true,
+
+    // Hide the toggle sidebar button in the status bar
+    "show_sidebar_button": false,
+
+    // Display misspelled words in the status bar
+    "show_spelling_errors": true,
+
+    // Display syntax in the status bar
+    "show_syntax": true,
+
+    // Hide the tab close button
+    "show_tab_close_buttons": false,
+
+    // Show close button on the right side of the close button
+    "show_tab_close_buttons_on_left": false,
+
+    // Make auto indent a little smarter (requires `auto_indent` to be enabled)
+    "smart_indent": true,
+
+    // Turn off spell checking by default
+    "spell_check": false,
+
+    // Seek Sublime Merge executable in standard location
+    "sublime_merge_path": "",
+
+    // Insert the best matching completion when pressing Tab; use Shift+Tab
+    // to insert an explicit tab when this setting is enabled
+    "tab_completion": true,
+
+    // The number of spaces a tab is considered equal to
+    "tab_size": 4,
+
+    // Switch between the light and dark themes based on the operating
+    // system appearance
+    "theme": "auto",
+
+    // Use a custom title bar when an adaptive theme is in use
+    "themed_title_bar": true,
+
+    // Insert spaces when Tab is pressed
+    "translate_tabs_to_spaces": true,
+
+    // Enable sidebar animation when expanding or collapsing folders
+    "tree_animation_enabled": true,
+
+    // Trim white space added by `auto_indent` when moving the caret
+    // off the line
+    "trim_automatic_white_space": true,
+
+    // Only trim white space on save for the parts of a file that have been
+    // modified by the user; trailing white space in other parts is left alone
+    "trim_only_modified_white_space": true,
+
+    // On save, remove trailing white space that won't affect the caret
+    "trim_trailing_white_space_on_save": "not_on_caret",
+
+    // Make Sublime text update the system's native Recent Files/Folders
+    "update_system_recent_files": true,
+
+    // Use global find clipboard (on Mac)
+    "use_find_clipboard": true,
+
+    // Make Tab, Backspace and Delete insert/delete space up to the next tabstop
+    "use_tab_stops": true,
+
+    // Disable horizontal scrolling
+    "word_wrap": true,
+
+    // Always wrap at exactly the wrap width (applied with `word_wrap` enabled)
+    "wrap_width_style": "constant",
+}
