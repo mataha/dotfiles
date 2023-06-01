@@ -1,0 +1,121 @@
+[user]
+    name = mataha
+    email = mataha@users.noreply.github.com
+
+[github]
+    user = mataha
+
+[advice]
+    addIgnoredFile = false
+    detachedHead = false
+    statusHints = false
+
+[alias]
+    a = add
+    b = blame
+    c = commit
+    d = diff
+    e = commit --allow-empty
+    f = commit --amend --no-edit
+    h = help
+    i = init
+    l = log --graph --oneline --decorate
+    m = merge
+    n = notes
+    o = checkout
+    p = add --patch
+    r = reset
+    s = stash
+    t = tag
+    u = pull
+    v = version
+    w = name-rev --always --name-only HEAD
+    z = !git archive --prefix=./ --output $(git name-rev --name-only HEAD).tar.gz
+
+    amend = commit --amend
+    empty = commit --allow-empty
+    fire = !command -v xargs >/dev/null 2>&1 && git remote | xargs -L1 git push --all
+    first = !git log -1 $(git rev-list --max-parents=0 HEAD)
+    fix = commit --amend --no-edit
+    last = log -1 HEAD
+    ls = branch --all --verbose
+    one = show --no-patch --pretty='format:%h (%s)'
+    patch = add --patch
+    staged = diff --staged
+    summary = !command -v onefetch >/dev/null 2>&1 && onefetch
+    unstage = reset HEAD
+
+[branch]
+    autoSetupRebase = always
+
+[checkout]
+    defaultRemote = origin
+
+[color]
+    branch = auto
+    diff = auto
+    grep = auto
+    interactive = auto
+    showbranch = auto
+    status = auto
+    ui = auto
+
+[core]
+    abbrev = 12
+    autocrlf = false
+    commitGraph = true
+    protectNTFS = true
+
+[diff]
+    algorithm = histogram
+
+[fetch]
+    prune = true
+
+[init]
+    defaultBranch = master
+
+[interactive]
+    singlekey = true
+
+[log]
+    date = short
+    follow = true
+
+[merge]
+    summary = true
+    tool = smerge
+
+[merge "ours"]
+    driver = true
+
+[merge "theirs"]
+    driver = false
+
+[mergetool "smerge"]
+    cmd = smerge --wait mergetool \"${BASE}\" \"${LOCAL}\" \"${REMOTE}\" -o \"${MERGED}\"
+    trustExitCode = true
+
+[pretty]
+    fixes = Fixes: %h (\"%s\")
+
+[pull]
+    ff = true
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+    default = simple
+
+[rerere]
+    enabled = true
+
+[stash]
+    showPatch = true
+
+[status]
+    branch = true
+    showStash = true
+
+[versionsort]
+    suffix = -
