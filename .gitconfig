@@ -13,15 +13,16 @@
 [alias]
     a = add
     b = blame
-    c = commit
+    c = commit --allow-empty
     d = diff
-    e = commit --allow-empty
+    e = commit --amend --edit
     f = commit --amend --no-edit
     h = help
     i = init
+    k = clone
     l = log --graph --oneline --decorate
     m = merge
-    n = notes
+    n = name-rev --always --name-only HEAD
     o = checkout
     p = add --patch
     r = reset
@@ -29,7 +30,8 @@
     t = tag
     u = pull
     v = version
-    w = name-rev --always --name-only HEAD
+    w = show
+    x = add --chmod=+x
     z = !git archive --prefix=./ --output $(git name-rev --name-only HEAD).tar.gz
 
     amend = commit --amend
