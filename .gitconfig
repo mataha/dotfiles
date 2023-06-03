@@ -26,12 +26,13 @@
     o = checkout
     p = add --patch
     r = reset
-    s = stash
+    s = stash show
     t = tag
     u = pull
-    v = version
+    v = version --build-options
     w = show
     x = add --chmod=+x
+    y = !yes "y"
     z = !git archive --prefix=./ --output $(git name-rev --name-only HEAD).tar.gz
 
     amend = commit --amend
@@ -45,7 +46,7 @@
     patch = add --patch
     staged = diff --staged
     summary = !command -v onefetch >/dev/null 2>&1 && onefetch
-    unstage = reset HEAD
+    unstage = reset HEAD --
 
 [branch]
     autoSetupRebase = always
