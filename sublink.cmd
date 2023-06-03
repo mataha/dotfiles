@@ -33,16 +33,16 @@ for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d 2>nul"') do (
 
 ::: Prints the given message and the line separator
 ::: to the "standard" output stream.
-call :create_echo_macro $log
+@call :define_echo_macro $log
 
 ::: Prints the given message and the line separator
 ::: to the "standard" error output stream.
-call :create_echo_macro $err 2
+@call :define_echo_macro $err 2
 
 @goto :main
 
 
-:create_echo_macro (name: string, stream: number?) > Result
+:define_echo_macro (name: string, stream: number?) > Result
     setlocal EnableExtensions & (if "%~1"=="" (exit /b 2)) & (set \n=^^^
 %= This is supposed to be empty! Removing that will cause cryptic errors! =%
 )
