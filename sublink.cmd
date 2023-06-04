@@ -19,7 +19,7 @@
 
 @setlocal DisableDelayedExpansion & if not defined DEBUG (echo off)
 
-for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d 2>nul"') do (
+for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d /q 2>nul"') do (
     for /f "tokens=4,6 delims=[.] " %%t in ('"ver"') do (
         set "[red]="         & set "[/red]="
         set "[b]="           & set "[/b]="
@@ -46,7 +46,6 @@ for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d 2>nul"') do (
     setlocal EnableExtensions & (if "%~1"=="" (exit /b 2)) & (set \n=^^^
 %= This is supposed to be empty! Removing that will cause cryptic errors! =%
 )
-
     ::: Avoid handle duplication during redirection to the `CONOUT$` device
     set "stream=" & if not "%~2"=="" if "%~2" neq "1" (set "stream=^>^&%~2")
 
@@ -161,24 +160,39 @@ for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d 2>nul"') do (
     ::: directory (`%__APPDIR__%`) and in the current directory (`%__CD__%`) if
     ::: `NeedCurrentDirectoryForExePathW(ExeName)` is true before checking the
     ::: system directories, thus try to avoid executing unqualified `cmd.exe`.
+    ::: See also: https://learn.microsoft.com/en-us/windows/win32/api/processenv/nf-processenv-needcurrentdirectoryforexepathw
     if not defined ComSpec (set "ComSpec=%SystemRoot%\System32\cmd.exe")
 
-    (goto & goto & call :is_label_context "%%~0") 2>nul && (
-        call :exit %exit_code%
-    ) || (call :is_label_context :is_label_context) 2>nul && (
-        exit /b %exit_code%
-    ) || (
-        "%ComSpec%" /d /c @exit /b %exit_code%
-    ) & if defined CMD_TITLE (
-        title %CMD_TITLE%
-    ) else (
-        title %CD%
+    2>nul (
+        (goto) & (goto)
+
+        call :is_label_context "%%~0" && (
+            call :exit %exit_code%
+        ) || (
+            call :is_batch_context && (
+                exit /b %exit_code%
+            ) || (
+                "%ComSpec%" /d /c @exit /b %exit_code%
+
+                @rem Do our best in restoring the default window title - hope
+                @rem that some third-party machinery has it hoarded somewhere
+                if defined TITLE (
+                    title %TITLE%
+                ) else (
+                    title %CD%
+                )
+            )
+        )
     )
+
+    :is_batch_context () > Result
+        exit /b 0 "If this is callable, then we're operating in Batch context"
 
     :is_label_context (context: string) > Result
         setlocal & (if "%~1"=="" (exit /b 2))
 
         set "context=%~1"
+        ::: Hopefully that'll be faster than `call set` in a cached code block
         if "%context:~0,1%"==":" (set "exit_code=0") else (set "exit_code=1")
 
         endlocal & exit /b %exit_code%
@@ -187,13 +201,22 @@ for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d 2>nul"') do (
 
 ::: Prints the given error message to the "standard" error output stream,
 ::: then exits the program with the specified (likely unsuccessful) status code.
-:error (exit_code: number?, message: string?) > Abort
-    setlocal EnableDelayedExpansion
+:error (exit_code: number?, message: string?, arguments: string...) > Abort
+    setlocal
 
     set "program=%~n0"
 
-    set "message=%~2" & if not "!message: =!"=="" (set "message=: !message!")
-    %$err% "%[red]%[%program% error]%[/red]%!message!"
+    set "message=%~2"
+    if defined message (set "message=: %message%")
+
+    :error_unpack & >nul set "arguments="
+        if not "%~3"=="" (
+            set "arguments=%arguments% %~3"
+            shift /3
+            goto :error_unpack
+        )
+
+    %$err% "%[red]%[%program% error]%[/red]%%message%%arguments%"
 
     endlocal & call :exit %1
 
@@ -222,6 +245,9 @@ for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d 2>nul"') do (
     endlocal & call :exit 0
 
 @:main
+    ::: Can't use parentheses/quotes here - `%*` may contain hazardous characters
+    if not "%~2"=="" call :error 2 "invalid arguments:" %*
+
     ::: Default installation - can be overridden via global environment variable
     ::: This doesn't necessarily have to target Sublime Text - Merge is fine too
     if not defined SUBLIME_PATH (set "sublime_path=%APPDATA%\Sublime Text")
@@ -236,9 +262,7 @@ for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d 2>nul"') do (
         call :error 1 "SUBLIME_PATH does not point to a Sublime data directory: '%sublime_path%'"
     )
 
-    if not "%~2"=="" (
-        call :error 2 "invalid arguments: '%*'"
-    ) else if "%~1"=="/?" (
+    if "%~1"=="/?" (
         call :usage
     ) else if "%~1"=="-h" (
         call :usage
