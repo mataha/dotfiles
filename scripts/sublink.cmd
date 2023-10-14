@@ -3,8 +3,8 @@
 :::
 ::: A simple tool to keep track of locally overridden Sublime syntax packages.
 :::
-::: Usage: sublink [PACKAGE]   Link or unlink the given package
-:::        sublink             List all created package overrides
+::: Usage: sublink [PACKAGE]  Link or unlink the given package
+:::        sublink            List all created package overrides
 :::
 ::: Arguments:
 :::   [PACKAGE]         Sublime syntax package to install or remove
@@ -16,19 +16,18 @@
 :::   SUBLIME_PATH      Absolute path to a Sublime data directory
 :::                     (default: '%APPDATA%\Sublime Text')
 :::
-
 @setlocal DisableDelayedExpansion & if not defined DEBUG (echo off)
 
-for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d /q 2>nul"') do (
-    for /f "tokens=4,6 delims=[.] " %%t in ('"ver"') do (
-        set "[red]="         & set "[/red]="
-        set "[b]="           & set "[/b]="
-        set "[u]="           & set "[/u]="
-    ) & if "%%~t" geq "10" if "%%~u" geq "10586" (
-        set "[red]=%%~e[31m" & set "[/red]=%%~e[39m"
-        set "[b]=%%~e[1m"    & set "[/b]=%%~e[22m"
-        set "[u]=%%~e[4m"    & set "[/u]=%%~e[24m"
-    )
+for /f "tokens=4,6 delims=[.] " %%v in ('"ver"') do (
+    set "[red]="         & set "[/red]="
+    set "[b]="           & set "[/b]="
+    set "[u]="           & set "[/u]="
+) & if "%%~v" geq "10" if "%%~w" geq "10586" for /f "skip=4" %%e in (
+    '"echo(prompt $E| "%ComSpec%" /d 2>nul"'
+) do (
+    set "[red]=%%~e[31m" & set "[/red]=%%~e[39m"
+    set "[b]=%%~e[1m"    & set "[/b]=%%~e[22m"
+    set "[u]=%%~e[4m"    & set "[/u]=%%~e[24m"
 )
 
 ::: Prints the given message and the line separator
@@ -44,7 +43,7 @@ for /f "skip=4" %%e in ('"echo(prompt $E| "%ComSpec%" /d /q 2>nul"') do (
 
 :define_echo_macro (name: string, stream: number?) > Result
     setlocal EnableExtensions & (if "%~1"=="" (exit /b 2)) & (set \n=^^^
-%= This is supposed to be empty! Removing that will cause cryptic errors! =%
+%= This is supposed to be empty! Removing it will cause cryptic errors! =%
 )
     ::: Avoid handle duplication during redirection to the `CONOUT$` device
     set "stream=" & if not "%~2"=="" if "%~2" neq "1" (set "stream=^>^&%~2")
