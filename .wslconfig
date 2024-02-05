@@ -1,0 +1,26 @@
+# ~/.wslconfig
+
+[wsl2]
+
+# Resolve the DNS name request without sending a networking packet by the WSL VM
+dnsTunneling = true
+
+# Run under cgroup v2 on WSL 2 (required for `memory.reclaim` feature to work)
+# See also: https://docs.docker.com/desktop/release-notes/#for-windows-19
+kernelCommandLine = systemd.unified_cgroup_hierarchy=1 cgroup_no_v1=all
+
+# Turn on default connection to bind WSL 2 localhost to Windows localhost
+localhostForwarding = true
+
+# Mirror network interfaces on Windows into Linux, enabling:
+#  - IPv6 support
+#  - connection to Windows servers from within Linux using the localhost address
+#  - connection to WSL directly from LAN
+#  - improved networking compatibility for VPNs
+#  - multicast support
+networkingMode = mirrored
+
+[experimental]
+
+# Automatically gradually release cached memory after detecting idle CPU usage
+autoMemoryReclaim = gradual
