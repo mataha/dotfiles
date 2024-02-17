@@ -1,16 +1,30 @@
-# ~/.wslconfig
+# mataha@dotfiles: ~/.wslconfig
+
+[experimental]
+# Automatically gradually release cached memory after detecting idle CPU usage
+autoMemoryReclaim = gradual
+
+# Set any new VHD to be a sparse VHD, which can automatically shrink in size
+sparseVhd = true
 
 [wsl2]
-
 # Resolve the DNS name request without sending a networking packet by the WSL VM
 dnsTunneling = true
 
+# Allow Windows Firewall settings and rules to apply to WSL 2 network traffic
+firewall = true
+
+# Permanently disable support for GUI applications (X11 and Wayland via WSLg)
+guiApplications = false
+
 # Run under cgroup v2 on WSL 2 (required for `memory.reclaim` feature to work)
-# See also: https://docs.docker.com/desktop/release-notes/#for-windows-19
 kernelCommandLine = systemd.unified_cgroup_hierarchy=1 cgroup_no_v1=all
 
 # Turn on default connection to bind WSL 2 localhost to Windows localhost
 localhostForwarding = true
+
+# Enable other nested VMs to run inside WSL 2 (requires Intel VT-x or AMD-V)
+nestedVirtualization = true
 
 # Mirror network interfaces on Windows into Linux, enabling:
 #  - IPv6 support
@@ -19,8 +33,3 @@ localhostForwarding = true
 #  - improved networking compatibility for VPNs
 #  - multicast support
 networkingMode = mirrored
-
-[experimental]
-
-# Automatically gradually release cached memory after detecting idle CPU usage
-autoMemoryReclaim = gradual
