@@ -186,80 +186,6 @@ doskey lock = (rundll32 user32.dll,LockWorkStation)
 ::: todo migrate to batch sometime
 doskey w = for %i as $*% do @(powershell -ExecutionPolicy "Bypass" -NoProfile -NonInteractive "[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12; $place = [uri]::EscapeUriString($(If ([string]::IsNullOrWhiteSpace('%%~i')) { "${env:WTTR_LOCATION}" } Else { '%%~i' })); $weather = (Invoke-WebRequest "wttr.in/${place}?mF" -UseBasicParsing -Method 'Get' -UserAgent 'curl').Content; echo `r ${weather}.Replace($([char] 0x2196), $([char] 0x005C)).Replace($([char] 0x2197), $([char] 0x002F)).Replace($([char] 0x2198), $([char] 0x005C)).Replace($([char] 0x2199), $([char] 0x002F)).Replace($([char] 0x26A1).ToString(), $([char] 0x250C).ToString() + $([char] 0x2518).ToString()).Trim();")
 
-set ONEFETCH_HOOKED=1
-
-set ZOXIDE_HOOKED=1
-set __ZOXIDE_Z_PREFIX=z
-
-set __ZOXIDE_CD=chdir /d
-set __ZOXIDE_PWD=chdir
-set __ZOXIDE_HOOK=(for /f "delims=" %%l in ('%__ZOXIDE_PWD%') do @(zoxide add -- "%%~fl\."))
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:::
-::: Path utilities
-:::
-
-set OLDPWD=
-
-set BUILTIN_CD=chdir /d
-set BUILTIN_PWD=chdir
-
-doskey cd = ( ^
-    for %i as $*% do @( ^
-        if "%%~i"=="" ( ^
-            if defined USERPROFILE ( ^
-                if /i not "%%CD%%"=="%%USERPROFILE%%" ( ^
-                    %BUILTIN_CD% "%%USERPROFILE%%" ^
-                        ^&^& set "OLDPWD=%%CD%%" ^
-                        ^&^& %__ZOXIDE_HOOK% ^
-                ) ^
-            ) else ( ^
-                (^>^&2 echo(%~nx0: cd: USERPROFILE is not set) ^& (call) ^
-            ) ^
-        ) else if "%%~i"=="-" ( ^
-            if defined OLDPWD ( ^
-                if /i not "%%CD%%"=="%%OLDPWD%%" ( ^
-                    %BUILTIN_CD% "%%OLDPWD%%" ^
-                        ^&^& set "OLDPWD=%%CD%%" ^
-                        ^&^& %__ZOXIDE_HOOK% ^
-                ) ^
-            ) else ( ^
-                (^>^&2 echo(%~nx0: cd: OLDPWD is not set) ^& (call) ^
-            ) ^
-        ) else ( ^
-            if defined CD ( ^
-                if /i not "%%CD%%"=="%%~fi" ( ^
-                    %BUILTIN_CD% %%~fi ^
-                        ^&^& set "OLDPWD=%%CD%%" ^
-                        ^&^& %__ZOXIDE_HOOK% ^
-                ) ^
-            ) else ( ^
-                (^>^&2 echo(%~nx0: cd: can't determine current directory) ^& (call) ^
-            ) ^
-        ) ^
-    ) ^
-)
-
-doskey cd.. = break
-
-doskey cd/ = break
-
-doskey cd\ = break
-
-::+ todo description and output
-doskey file = ( ^
-    for %i as $*% do @for /f "tokens=1,2 delims=d" %%a in ("-%%~ai") do @( ^
-        if not "%%~b"=="" ( ^
-            (echo(Directory) ^& (call ) ^
-        ) else if not "%%~a"=="-" ( ^
-            (echo(File)      ^& (call ) ^
-        ) else ( ^
-            (echo(Neither a file nor a directory) ^& (call) ^
-        ) ^
-    ) ^
-)
-
 ::+ todo description and output
 doskey pwd = ( ^
     for %i as $*% do @if /i not "%%~i"=="/p" (%BUILTIN_PWD%) else ( ^
@@ -271,60 +197,7 @@ doskey pwd = ( ^
     ) ^
 )
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-:::
-::: zoxide
-:::
-
-doskey z = ( ^
-    for %i as $*% do @( ^
-        if "%%~i"=="" ( ^
-            if defined HOME ( ^
-                if /i not "%%CD%%"=="%%HOME%%" ( ^
-                    %BUILTIN_CD% "%%HOME%%" ^
-                        ^&^& set "OLDPWD=%%CD%%" ^
-                        ^&^& %__ZOXIDE_HOOK% ^
-                ) ^
-            ) ^
-        ) else if "%%~i"=="-" ( ^
-            if defined OLDPWD ( ^
-                if /i not "%%CD%%"=="%%OLDPWD%%" ( ^
-                    %BUILTIN_CD% "%%OLDPWD%%" ^
-                        ^&^& set "OLDPWD=%%CD%%" ^
-                        ^&^& %__ZOXIDE_HOOK% ^
-                ) ^
-            ) ^
-        ) else ( ^
-            for /f "usebackq delims=" %%p in ( ^
-                `"zoxide query --exclude "%%CD%%\." -- %%~i"` ^
-            ) do @( ^
-                if /i not "%%CD%%"=="%%~fp" ( ^
-                    %BUILTIN_CD% %%~fp ^
-                        ^&^& set "OLDPWD=%%CD%%" ^
-                        ^&^& %__ZOXIDE_HOOK% ^
-                ) ^
-            ) ^
-        ) ^
-    ) ^
-)
-
-doskey zi = ( ^
-    for %i as $*% do @for /f "usebackq delims=" %%p in ( ^
-        `"zoxide query --interactive -- %%~i"` ^
-    ) do @( ^
-        if /i not "%%CD%%"=="%%~fp" ( ^
-            %BUILTIN_CD% %%~fp ^
-                ^&^& set "OLDPWD=%%CD%%" ^
-                ^&^& %__ZOXIDE_HOOK% ^
-        ) ^
-    ) ^
-) ^&^& if defined ONEFETCH_HOOKED ( ^
-    for /f "delims=" %%r in ('"git rev-parse --show-toplevel 2$Gnul"') do @( ^
-        if not "%%~r"=="%%LAST_REPOSITORY%%" ( ^
-            onefetch ^
-        ) ^& set "LAST_REPOSITORY=%%~r" ^
-    ) ^
-)
+zoxide init cmd --cmd cd --hook none | cmd /d/q/k echo off
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :::

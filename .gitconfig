@@ -1,52 +1,62 @@
 [user]
     name = mataha
-    email = mataha@users.noreply.github.com
+    email = mat"aha@u""sers.norep"ly.gith"ub.com"
 
-[github]
-    user = mataha
+# ------------------------------------------------------------------------------
 
 [advice]
-    addIgnoredFile = false
+    addEmptyPathspec = false
     detachedHead = false
     statusHints = false
 
 [alias]
+    debug = "!set -x; GIT_TRACE=2 GIT_CURL_VERBOSE=2 GIT_TRACE_PERFORMANCE=2 \
+        GIT_TRACE_PACK_ACCESS=2 GIT_TRACE_PACKET=2 GIT_TRACE_PACKFILE=2 \
+        GIT_TRACE_SETUP=2 GIT_TRACE_SHALLOW=2 git"
+
     a = add
-    b = blame
+    b = bisect --first-parent
     c = commit --allow-empty
-    d = diff
-    e = commit --amend --edit
-    f = commit --amend --no-edit
-    h = help
-    i = init
-    k = clone
+    d = diff --patch --unified
+    e = 'c' --amend --edit
+    f = 'c' --amend --no-edit
+    g = pull
+    h = 'd' --no-index --text
+    i = 'a' --patch
+    j = stash show
+    k = clone --recurse-submodules
     l = log --graph --oneline --decorate
     m = merge
     n = name-rev --always --name-only HEAD
     o = checkout
-    p = add --patch
+    p = push
     r = reset
-    s = stash show
+    s = 'd' --staged
     t = tag
-    u = pull
+    u = push
     v = version --build-options
     w = show
-    x = add --chmod=+x
-    y = !yes "y"
-    z = !git archive --prefix=./ --output $(git name-rev --name-only HEAD).tar.gz
+    x = 'a' --chmod=+x
+    y = "!yes 'y'"
+    z = "!git archive --prefix=./ --output $(git name-rev --name-only HEAD).tar.gz"
 
-    amend = commit --amend
-    empty = commit --allow-empty
-    fire = !command -v xargs >/dev/null 2>&1 && git remote | xargs -L1 git push --all
-    first = !git log -1 $(git rev-list --max-parents=0 HEAD)
-    fix = commit --amend --no-edit
+    pls = 'p' --force-with-lease
+
+    fap = fetch --all --prune
+    fire = "!command -v xargs >/dev/null 2>&1 && git remote | xargs -L1 git push --all"
+    first = "!git log -1 $(git rev-list --max-parents=0 HEAD)"
     last = log -1 HEAD
     ls = branch --all --verbose
     one = show --no-patch --pretty='format:%h (%s)'
-    patch = add --patch
-    staged = diff --staged
-    summary = !command -v onefetch >/dev/null 2>&1 && onefetch
+    sparse = 'k' --sparse --no-checkout --depth 1 --filter=blob:none
     unstage = reset HEAD --
+    initree = "!git init --template=\"${HOME}/.template\" \"${@}\" && cd -- \"${GIT_PREFIX:-.}\" && { [ \"${#}\" != \"0\" ] && cd -- \"${*: $#}\" || true; } && git reset --hard -- >/dev/null 2>&1 #"
+
+    yolo = "!git commit --message=\"$(curl -fsSL \"https://whatthecommit.com/index.txt\")\" --no-verify -- #"
+
+    # Manage "gone" local branches (branches whose tracking branch doesn't exist anymore)
+    ls-gone = !git for-each-ref --format '%(refname:strip=2) %(upstream:track)' refs/heads/ | awk '$2 == \"[gone]\" { print $1 }'
+    rm-gone = !git branch --delete $(git ls-gone)
 
 [branch]
     autoSetupRebase = always
@@ -63,25 +73,44 @@
     status = auto
     ui = auto
 
+[commit]
+    verbose = true
+
 [core]
+    # https://lkml.org/lkml/2013/9/30/365
     abbrev = 12
+
     autocrlf = false
-    commitGraph = true
+    commitGraph = false
+    pager = less -+S
     protectNTFS = true
+
+    # Warn if a line ending conversion is irreversible
+    safecrlf = warn
 
 [diff]
     algorithm = histogram
+    indentHeuristic = true
+
+[feature]
+    experimental = true
 
 [fetch]
     prune = true
+
+[fetch "fsck"]
+    # https://github.com/psf/requests/issues/2690
+    badTimezone = warn
 
 [init]
     defaultBranch = master
 
 [interactive]
-    singlekey = true
+    # https://github.com/git-for-windows/git/issues/4466
+    singlekey = false
 
 [log]
+    # Use `--follow` by default when invoking `git log` on a single path
     date = short
     follow = true
 
@@ -89,26 +118,26 @@
     summary = true
     tool = smerge
 
-[merge "ours"]
-    driver = true
-
-[merge "theirs"]
-    driver = false
-
 [mergetool "smerge"]
     cmd = smerge --wait mergetool \"${BASE}\" \"${LOCAL}\" \"${REMOTE}\" -o \"${MERGED}\"
     trustExitCode = true
 
-[pretty]
-    fixes = Fixes: %h (\"%s\")
+[pager]
+    branch = false
 
 [pull]
     ff = true
     rebase = true
 
 [push]
+    # Assume `--set-upstream` on default push when no upstream tracking exists
+    # for the current branch
     autoSetupRemote = true
     default = simple
+
+[receive "fsck"]
+    # https://github.com/psf/requests/issues/2690
+    badTimezone = warn
 
 [rerere]
     enabled = true
@@ -120,5 +149,16 @@
     branch = true
     showStash = true
 
+    # Show summary of changes to submodules
+    submoduleSummary = true
+
+[transfer]
+    fsckObjects = true
+
 [versionsort]
     suffix = -
+
+# ------------------------------------------------------------------------------
+
+[include]
+    path = .gitconfig.local

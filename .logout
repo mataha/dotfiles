@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
-# vi: set et ft=sh ts=4 sts=4 sw=4 fenc=utf-8
+# vi: set et ft=sh ts=4 sts=4 sw=4 fenc=utf-8                                :vi
 
 [ -z "${VIRTUAL_ENV+NULL}" ] || deactivate
